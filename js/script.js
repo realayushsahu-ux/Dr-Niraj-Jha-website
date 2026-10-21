@@ -85,6 +85,14 @@ appointmentForm.addEventListener("submit", async function (event) {
   if (!appointmentForm.reportValidity()) return;
 
   const formData = new FormData(appointmentForm);
+  // Honeypot spam protection
+const honeypot = String(formData.get("website") || "").trim();
+
+if (honeypot !== "") {
+  appointmentMessage.textContent =
+    "Unable to submit this request. Please try again.";
+  return;
+}
   const phone = String(formData.get("phone") || "").trim();
 
   if (!/^[0-9]{10}$/.test(phone)) {
