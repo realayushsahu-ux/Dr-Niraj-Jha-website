@@ -630,8 +630,62 @@
 
     </div>
     </footer>
+    
+<!-- Appointment Form Popup -->
+    <div id="appointment-modal" class="appointment-modal" aria-hidden="true">
+     <div class="appointment-box">
+    <button type="button" id="close-appointment"
+      class="appointment-close" aria-label="Close">&times;</button>
 
-    <!-- JavaScript -->
+    <p class="appointment-label">DR. JHA'S PHYSIOWORLD</p>
+    <h2>Book an Appointment</h2>
+    <p>Share your details and our clinic team can contact you.</p>
+
+    <form id="appointment-form">
+        
+    <!-- Spam protection: leave this field empty -->
+    <div class="appointment-hp" aria-hidden="true">
+    <label for="website-check">Leave this field empty</label>
+    <input
+        type="text"
+        id="website-check"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+  />
+    </div>
+
+      <label for="patient-name">Full Name *</label>
+      <input id="patient-name" name="name" type="text"
+        maxlength="100" autocomplete="name" required />
+
+      <label for="patient-email">Email (optional)</label>
+      <input id="patient-email" name="email" type="email"
+        maxlength="150" autocomplete="email" />
+
+      <label for="patient-phone">Phone Number *</label>
+      <input id="patient-phone" name="phone" type="tel"
+        maxlength="10" pattern="[0-9]{10}"
+        inputmode="numeric" autocomplete="tel"
+        placeholder="10-digit mobile number" required />
+
+      <label for="patient-city">City *</label>
+      <input id="patient-city" name="city" type="text"
+        maxlength="100" autocomplete="address-level2" required />
+
+      <button type="submit" id="appointment-submit">
+        Request a Call
+      </button>
+
+      <p id="appointment-message" role="status" aria-live="polite"></p>
+      <p class="appointment-privacy">
+        Your details will be shared with the clinic to respond to your request.
+      </p>
+    </form>
+    </div>
+    </div>
+<!-- JavaScript -->
     <script src="js/script.js"></script>
+
 </body>
 </html>
