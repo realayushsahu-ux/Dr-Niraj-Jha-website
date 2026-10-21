@@ -85,14 +85,7 @@ appointmentForm.addEventListener("submit", async function (event) {
   if (!appointmentForm.reportValidity()) return;
 
   const formData = new FormData(appointmentForm);
-  // Honeypot spam protection
-const honeypot = String(formData.get("website") || "").trim();
-
-if (honeypot !== "") {
-  appointmentMessage.textContent =
-    "Unable to submit this request. Please try again.";
-  return;
-}
+  
   const phone = String(formData.get("phone") || "").trim();
 
   if (!/^[0-9]{10}$/.test(phone)) {
@@ -129,3 +122,109 @@ if (honeypot !== "") {
     appointmentSubmit.textContent = "Request a Call";
   }
 });
+
+/* Delayed Lead Popup */
+const leadPopup = document.getElementById("lead-popup");
+const closeLeadPopup = document.getElementById("close-lead-popup");
+
+function openLeadPopup() {
+  if (!leadPopup) return;
+
+  leadPopup.classList.add("is-visible");
+  leadPopup.setAttribute("aria-hidden", "false");
+}
+
+function closeLeadPopupWindow() {
+  if (!leadPopup) return;
+
+  leadPopup.classList.remove("is-visible");
+  leadPopup.setAttribute("aria-hidden", "true");
+}
+
+if (leadPopup && closeLeadPopup) {
+  // Show the popup 30 seconds after the page loads
+  window.setTimeout(function () {
+    openLeadPopup();
+  }, 7000);
+
+  // Close using the X button
+  closeLeadPopup.addEventListener("click", closeLeadPopupWindow);
+
+  // Close when clicking outside the popup box
+  leadPopup.addEventListener("click", function (event) {
+    if (event.target === leadPopup) {
+      closeLeadPopupWindow();
+    }
+  });
+
+  // Close using the Escape key
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeLeadPopupWindow();
+    }
+  });
+}
+
+/* Submit Popup Leads to Google Sheets */
+const leadForm = document.getElementById("lead-popup-form");
+const leadMessage = document.getElementById("lead-popup-message");
+const leadSubmit = document.getElementById("lead-popup-submit");
+
+const leadSheetURL =
+  "https://script.google.com/macros/s/AKfycbwNVRjInFvKG4owAjlL5vASTNX2r5NicKTbuOAgHG0UIpdNFgIXacWaNJWf3FmhvIVw/exec";
+
+if (leadForm && leadMessage && leadSubmit) {
+  leadForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!leadForm.reportValidity()) return;
+
+    const phone = document.getElementById("lead-phone").value.trim();
+    const pincode = document.getElementById("lead-pincode").value.trim();
+    const consent = document.getElementById("lead-consent").checked;
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+      leadMessage.textContent = "Please enter a valid 10-digit mobile number.";
+      return;
+    }
+
+    if (!/^[0-9]{6}$/.test(pincode)) {
+      leadMessage.textContent = "Please enter a valid 6-digit PIN code.";
+      return;
+    }
+
+    if (!consent) {
+      leadMessage.textContent = "Please agree before submitting your details.";
+      return;
+    }
+
+    leadSubmit.disabled = true;
+    leadSubmit.textContent = "Submitting...";
+    leadMessage.textContent = "";
+
+    try {
+      const data = new URLSearchParams();
+      data.set("formType", "popupLead");
+      data.set("phone", phone);
+      data.set("pincode", pincode);
+      data.set("consent", "yes");
+
+      await fetch(leadSheetURL, {
+        method: "POST",
+        mode: "no-cors",
+        body: data
+      });
+
+      leadMessage.textContent =
+        "Thank you! Please wait while we verify your request.";
+
+      leadForm.reset();
+    } catch (error) {
+      leadMessage.textContent =
+        "We couldn't send your request. Please contact the clinic by phone.";
+    } finally {
+      leadSubmit.disabled = false;
+      leadSubmit.textContent = "Request a Call";
+    }
+  });
+}

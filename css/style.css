@@ -1801,3 +1801,179 @@ button:focus-visible {
   }
 }
 
+/* Delayed Popup - Lead Form */
+.lead-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  padding: 20px;
+  background: rgba(10, 25, 47, 0.68);
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.lead-popup.is-visible {
+  display: flex;
+}
+
+.lead-popup-box {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 32px;
+  background: #ffffff;
+  color: #173653;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+  animation: leadPopupEnter 0.3s ease-out;
+}
+
+@keyframes leadPopupEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lead-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: 0;
+  background: transparent;
+  color: #526579;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.lead-popup-label {
+  margin: 0 0 12px;
+  color: #168c9b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.lead-popup-box h2 {
+  margin: 0 0 10px;
+  color: #173653;
+  font-size: 26px;
+  line-height: 1.3;
+}
+
+.lead-popup-description {
+  margin: 0 0 22px;
+  color: #637083;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#lead-popup-form {
+  display: grid;
+  gap: 9px;
+}
+
+#lead-popup-form > label:not(.lead-consent) {
+  margin-top: 5px;
+  color: #243b53;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#lead-popup-form input[type="tel"],
+#lead-popup-form input[name="pincode"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d5dce5;
+  border-radius: 8px;
+  background: #fff;
+  color: #173653;
+  font: inherit;
+}
+
+#lead-popup-form input:focus {
+  outline: 2px solid #168c9b;
+  outline-offset: 1px;
+}
+
+.lead-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 12px 0 5px;
+  color: #526579;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.lead-consent input {
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: #168c9b;
+}
+
+#lead-popup-submit {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #173f60;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#lead-popup-submit:hover {
+  background: #215477;
+}
+
+#lead-popup-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+#lead-popup-message {
+  margin: 4px 0;
+  color: #526579;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.lead-popup-privacy {
+  margin: 5px 0 0;
+  color: #7b8795;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .lead-popup {
+    padding: 14px;
+  }
+
+  .lead-popup-box {
+    padding: 28px 21px;
+  }
+
+  .lead-popup-box h2 {
+    font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead-popup-box {
+    animation: none;
+  }
+}
+

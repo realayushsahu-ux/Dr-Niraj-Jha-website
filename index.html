@@ -383,7 +383,7 @@
                     <span class="facility-icon">✳</span>
                     <div>
                         <h3>Manual Therapy</h3>
-                        <p>Hands-on techniques selected according to clinical needs.</p>
+                        <p>Hands on techniques selected according to clinical needs.</p>
                     </div>
                 </article>
 
@@ -642,18 +642,6 @@
     <p>Share your details and our clinic team can contact you.</p>
 
     <form id="appointment-form">
-        
-    <!-- Spam protection: leave this field empty -->
-    <div class="appointment-hp" aria-hidden="true">
-    <label for="website-check">Leave this field empty</label>
-    <input
-        type="text"
-        id="website-check"
-        name="website"
-        tabindex="-1"
-        autocomplete="off"
-  />
-    </div>
 
       <label for="patient-name">Full Name *</label>
       <input id="patient-name" name="name" type="text"
@@ -684,6 +672,75 @@
     </form>
     </div>
     </div>
+
+    
+<!-- Popup Leads Form -->
+<div id="lead-popup" class="lead-popup" aria-hidden="true">
+  <div class="lead-popup-box" role="dialog"
+       aria-modal="true" aria-labelledby="lead-popup-title">
+
+    <button type="button" id="close-lead-popup"
+            class="lead-popup-close" aria-label="Close popup">
+      &times;
+    </button>
+
+    <p class="lead-popup-label">DR. JHA'S PHYSIOWORLD</p>
+
+    <h2 id="lead-popup-title">Need help with your recovery?</h2>
+
+    <p class="lead-popup-description">
+      Enter your details and our team will contact you shortly
+      to schedule an appointment.
+    </p>
+
+    <form id="lead-popup-form">
+      <label for="lead-phone">Mobile Number *</label>
+      <input
+        type="tel"
+        id="lead-phone"
+        name="phone"
+        inputmode="numeric"
+        pattern="[0-9]{10}"
+        maxlength="10"
+        placeholder="Enter 10-digit mobile number"
+        autocomplete="tel"
+        required
+      />
+
+      <label for="lead-pincode">PIN Code *</label>
+      <input
+        type="text"
+        id="lead-pincode"
+        name="pincode"
+        inputmode="numeric"
+        pattern="[0-9]{6}"
+        maxlength="6"
+        placeholder="Enter 6-digit PIN code"
+        autocomplete="postal-code"
+        required
+      />
+
+      <label class="lead-consent">
+        <input type="checkbox" id="lead-consent" name="consent" required />
+        <span>
+          I agree to be contacted by Dr. Jha's Physioworld
+          to schedule an appointment.
+        </span>
+      </label>
+
+      <button type="submit" id="lead-popup-submit">
+        Sumbit
+      </button>
+
+      <p id="lead-popup-message" role="status" aria-live="polite"></p>
+
+      <p class="lead-popup-privacy">
+        Your details will be used to respond to your request.
+      </p>
+    </form>
+  </div>
+</div>
+
 <!-- JavaScript -->
     <script src="js/script.js"></script>
 
